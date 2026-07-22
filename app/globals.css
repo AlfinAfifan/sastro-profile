@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sora: "Sora", sans-serif;
+  --font-inter: "Inter", sans-serif;
+  --font-playfair: "Playfair Display", serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white text-slate-700 font-body antialiased;
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3
+      font-heading text-sm font-semibold text-white shadow-soft transition-all
+      hover:bg-primary-600 hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-primary-200;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-primary-200 bg-white
+      px-7 py-3 font-heading text-sm font-semibold text-primary transition-all
+      hover:border-primary hover:bg-primary-50 focus:outline-none focus:ring-4 focus:ring-primary-100;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full bg-primary-50 px-4 py-1.5
+      font-heading text-xs font-semibold uppercase tracking-wider text-primary;
+  }
+
+  .section-title {
+    @apply font-heading text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl;
+  }
+
+  /* Sembunyikan scrollbar untuk carousel horizontal */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #eef2fa;
+}
+::-webkit-scrollbar-thumb {
+  background: #7f9cd8;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4267b2;
+}
