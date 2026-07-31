@@ -1,8 +1,11 @@
+import Reveal from "./Reveal";
+
 export default function CTA() {
   return (
     <section className="pb-4">
       <div className="container-x">
-        <div className="relative overflow-hidden rounded-[2rem] border border-primary-100 bg-primary-50 px-8 py-16 text-center sm:px-16">
+        <Reveal>
+        <div className="relative overflow-hidden rounded-[2rem] border border-primary-100 bg-primary-50 px-8 py-16 text-center transition-shadow duration-300 hover:shadow-soft sm:px-16">
           <div className="pointer-events-none absolute -right-10 -top-10 h-52 w-52 rounded-full bg-primary-200/50 blur-2xl" />
           <div className="pointer-events-none absolute -bottom-12 -left-8 h-52 w-52 rounded-full bg-accent/20 blur-2xl" />
           <div className="relative mx-auto max-w-2xl">
@@ -11,7 +14,7 @@ export default function CTA() {
             </h2>
             <p className="mt-4 text-lg text-slate-600">
               Terbuka untuk kemitraan distribusi, kolaborasi brand, maupun peluang karier —
-              tim kami siap menyambut Anda menjadi bagian dari keluarga besar Sastro Utama.
+              tim kami siap menyambut Anda menjadi bagian dari keluarga besar Sastro Grup.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <a href="#contact" className="btn-primary">
@@ -23,6 +26,7 @@ export default function CTA() {
             </div>
           </div>
         </div>
+        </Reveal>
       </div>
     </section>
   );

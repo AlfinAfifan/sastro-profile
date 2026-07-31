@@ -5,10 +5,10 @@ import Link from "next/link";
 import Logo from "./Logo";
 
 const links = [
-  { href: "/#about", label: "Tentang Kami" },
+  { href: "/#home", label: "Tentang Kami" },
+  { href: "/#vision", label: "Visi & Misi" },
   { href: "/#services", label: "Lini Bisnis" },
-  { href: "/#work", label: "Brand Kami" },
-  { href: "/#team", label: "Manajemen" },
+  { href: "/#news", label: "News & Events" },
   { href: "/#contact", label: "Kontak" },
 ];
 
@@ -32,7 +32,7 @@ export default function Navbar() {
       }`}
     >
       <nav className="container-x flex h-20 items-center justify-between py-4">
-        <Link href="/" aria-label="Sastro Utama Media Grup beranda">
+        <Link href="/" aria-label="Sastro Grup beranda">
           <Logo />
         </Link>
 

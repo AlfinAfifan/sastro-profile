@@ -2,7 +2,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Reveal from "@/components/Reveal";
 import { brands, getBrand } from "@/lib/brands";
+import { generateImageUrl, stripHtml, formatPrice } from "@/lib/products";
 
 export function generateStaticParams() {
   return brands.map((b) => ({ slug: b.slug }));
@@ -13,8 +15,8 @@ export async function generateMetadata({ params }) {
   const brand = getBrand(slug);
   if (!brand) return {};
   return {
-    title: `${brand.name} — ${brand.category} | PT Sastro Utama Media Grup`,
-    description: brand.description,
+    title: `${brand.name} — ${brand.category} | PT Sastro Grup`,
+    description: brand.tagline,
   };
 }
 
@@ -46,7 +48,7 @@ export default async function BrandDetail({ params }) {
 
         {/* Hero brand */}
         <section className="container-x mt-8 grid items-center gap-12 lg:grid-cols-2">
-          <div>
+          <Reveal>
             <span className="eyebrow">
               <span className="h-2 w-2 rounded-full bg-accent" />
               {brand.category}
@@ -55,7 +57,10 @@ export default async function BrandDetail({ params }) {
               {brand.name}
             </h1>
             <p className="mt-3 font-display text-xl italic text-primary">{brand.tagline}</p>
-            <p className="mt-6 text-lg leading-relaxed text-slate-600">{brand.description}</p>
+            <p className="mt-6 text-lg leading-relaxed text-slate-600">
+              {brand.products.length} produk tersedia dalam brand ini — seluruhnya diproduksi
+              dan didistribusikan di bawah naungan PT Sastro Grup.
+            </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
               <Link href="/#contact" className="btn-primary">
@@ -65,14 +70,14 @@ export default async function BrandDetail({ params }) {
                 Kembali ke Brand Kami
               </Link>
             </div>
-          </div>
+          </Reveal>
 
-          <div className="relative">
+          <Reveal delay={120} className="relative">
             <div
               className="pointer-events-none absolute -right-6 -top-6 h-48 w-48 rounded-full blur-3xl opacity-30"
               style={{ background: brand.from }}
             />
-            <div className="relative overflow-hidden rounded-[2rem] rounded-tr-[4.5rem] shadow-card ring-1 ring-slate-100">
+            <div className="relative overflow-hidden rounded-[2rem] rounded-tr-[4.5rem] bg-slate-50 shadow-card ring-1 ring-slate-100">
               <img
                 src={brand.image}
                 alt={`Produk brand ${brand.name}`}
@@ -86,41 +91,51 @@ export default async function BrandDetail({ params }) {
                 {brand.name}
               </p>
             </div>
-          </div>
+          </Reveal>
         </section>
 
-        {/* Statistik brand */}
-        <section className="container-x mt-16">
-          <div
-            className="grid grid-cols-1 gap-8 rounded-[2rem] px-8 py-10 text-center shadow-soft sm:grid-cols-3"
-            style={{ background: `linear-gradient(135deg, ${brand.from}, ${brand.to})` }}
-          >
-            {brand.stats.map((s) => (
-              <div key={s.label}>
-                <p className="font-heading text-4xl font-extrabold text-white">{s.value}</p>
-                <p className="mt-1 text-sm font-medium text-white/70">{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Keunggulan */}
-        <section className="container-x mt-16">
-          <h2 className="section-title">Keunggulan {brand.name}</h2>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2">
-            {brand.highlights.map((h) => (
-              <div
-                key={h}
-                className="flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-5 shadow-card"
-              >
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary-50 text-primary">
-                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-                <p className="font-heading text-sm font-semibold text-slate-800">{h}</p>
-              </div>
-            ))}
+        {/* Daftar produk */}
+        <section className="container-x mt-20">
+          <Reveal>
+            <h2 className="section-title">Produk {brand.name}</h2>
+          </Reveal>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {brand.products.map((p, i) => {
+              const price = formatPrice(p.product_price);
+              const desc = stripHtml(p.product_description);
+              return (
+                <Reveal key={p.id} delay={(i % 3) * 90}>
+                  <article className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-slate-100 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-soft hover:ring-primary-200">
+                    <div className="relative aspect-square overflow-hidden bg-slate-50">
+                      <img
+                        src={generateImageUrl(p.product_image)}
+                        alt={p.product_name}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 font-heading text-[10px] font-bold uppercase tracking-widest text-primary backdrop-blur">
+                        {p.category_name}
+                      </span>
+                    </div>
+                    <div className="flex flex-1 flex-col p-5">
+                      <h3 className="font-heading text-base font-bold leading-snug text-slate-900 transition-colors group-hover:text-primary">
+                        {p.product_name}
+                      </h3>
+                      {desc && (
+                        <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600 line-clamp-3">
+                          {desc}
+                        </p>
+                      )}
+                      {price && (
+                        <p className="mt-4 font-heading text-lg font-extrabold text-primary">
+                          {price}
+                        </p>
+                      )}
+                    </div>
+                  </article>
+                </Reveal>
+              );
+            })}
           </div>
         </section>
 
@@ -142,10 +157,11 @@ export default async function BrandDetail({ params }) {
                 href={`/brand/${b.slug}`}
                 className="group overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-slate-100 transition-all duration-300 hover:-translate-y-1.5"
               >
-                <div className="relative aspect-[16/10] overflow-hidden">
+                <div className="relative aspect-[16/10] overflow-hidden bg-slate-50">
                   <img
                     src={b.image}
                     alt={`Produk brand ${b.name}`}
+                    loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div

@@ -22,18 +22,18 @@ const playfair = Playfair_Display({
 });
 
 export const metadata = {
-  title: "PT Sastro Utama Media Grup — Perusahaan Kosmetik & Kecantikan Indonesia",
+  title: "PT Sastro Grup — Perusahaan Kosmetik & Kecantikan Indonesia",
   description:
-    "PT Sastro Utama Media Grup adalah perusahaan induk yang menaungi brand-brand kosmetik dan perawatan diri Indonesia — dari riset formula, manufaktur, hingga distribusi nasional.",
+    "PT Sastro Grup adalah perusahaan induk yang menaungi brand-brand kosmetik dan perawatan diri Indonesia — dari riset formula, manufaktur, hingga distribusi nasional.",
   keywords: [
     "kosmetik",
     "skincare",
     "perusahaan kosmetik indonesia",
     "brand kecantikan",
-    "PT Sastro Utama Media Grup",
+    "PT Sastro Grup",
   ],
   openGraph: {
-    title: "PT Sastro Utama Media Grup — Perusahaan Kosmetik & Kecantikan Indonesia",
+    title: "PT Sastro Grup — Perusahaan Kosmetik & Kecantikan Indonesia",
     description:
       "Perusahaan induk yang menaungi brand-brand kosmetik dan perawatan diri Indonesia.",
     type: "website",

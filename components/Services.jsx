@@ -40,31 +40,33 @@ const services = [
   },
 ];
 
+import Reveal from "./Reveal";
+
 export default function Services() {
   return (
-    <section id="services" className="bg-slate-50/70 py-24 sm:py-32">
+    <section id="services" className="py-24 sm:py-32">
       <div className="container-x">
-        <div className="mx-auto max-w-2xl text-center">
+        <Reveal className="mx-auto max-w-2xl text-center">
           <span className="eyebrow">Lini Bisnis</span>
           <h2 className="section-title mt-5">Terintegrasi dari laboratorium hingga etalase</h2>
           <p className="mt-4 text-lg text-slate-600">
             Kami mengelola seluruh rantai nilai industri kecantikan dalam satu grup —
             memastikan kualitas terjaga di setiap tahapnya.
           </p>
-        </div>
+        </Reveal>
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((s) => (
+          {services.map((s, i) => (
+            <Reveal key={s.title} delay={i * 90}>
             <article
-              key={s.title}
-              className={`group rounded-2xl border p-7 transition-all duration-300 hover:-translate-y-1.5 ${
+              className={`group h-full rounded-2xl border p-7 transition-all duration-300 hover:-translate-y-1.5 ${
                 s.featured
-                  ? "border-primary bg-primary text-white shadow-soft"
-                  : "border-slate-100 bg-white shadow-card hover:border-primary-200"
+                  ? "border-primary bg-primary text-white shadow-soft hover:shadow-lg"
+                  : "border-slate-100 bg-white shadow-card hover:border-primary-200 hover:shadow-soft"
               }`}
             >
               <span
-                className={`grid place-items-center rounded-2xl transition-colors ${
+                className={`grid place-items-center rounded-2xl transition-all duration-300 group-hover:scale-110 group-hover:-rotate-3 ${
                   s.featured
                     ? "bg-white/15 text-white"
                     : "bg-primary-50 text-primary group-hover:bg-primary group-hover:text-white"
@@ -82,6 +84,7 @@ export default function Services() {
                 {s.desc}
               </p>
             </article>
+            </Reveal>
           ))}
         </div>
       </div>
